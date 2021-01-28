@@ -1,19 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SnakeController : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         SnakeMovement();
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Food")
+        {
+            SnakeSpawner.snakelength++;
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "Obstacle")
+        {
+            Debug.Log("collided with wall");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (collision.gameObject.tag == "Finish")
+        {
+            if(SnakeSpawner.snakelength >= 6) { 
+                Debug.Log("collided with finish");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+            }
+        }
     }
 
     void SnakeMovement()

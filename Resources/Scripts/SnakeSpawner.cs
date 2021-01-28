@@ -54,9 +54,9 @@ public class SnakeSpawner : MonoBehaviour
 
     List<positionRecord> pastPositions;
 
-    public int snakelength = 6;
+    public static int snakelength = 0;
 
-    int positionorder = 0;
+    int positionorder;
 
     bool firstrun = true;
 
