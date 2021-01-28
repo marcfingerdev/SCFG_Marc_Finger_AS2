@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Pathfinding;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class positionRecord
+public class positionRecord2
 
 {
     Vector3 position;
@@ -15,14 +16,14 @@ public class positionRecord
     {
         if (obj == null)
             return false;
-        positionRecord p = obj as positionRecord;
+        positionRecord2 p = obj as positionRecord2;
         if ((System.Object)p == null)
             return false;
         return position == p.position;
     }
 
 
-    public bool Equals(positionRecord o)
+    public bool Equals(positionRecord2 o)
     {
         if (o == null)
             return false;
@@ -47,12 +48,12 @@ public class positionRecord
     public GameObject BreadcrumbBox { get => breadcrumbBox; set => breadcrumbBox = value; }
 }
 
-public class SnakeSpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
 
-    GameObject PlayerBox, StartPoint, breadcrumbBox, pathParent;
+    GameObject EnemyBox, StartPoint, breadcrumbBox2, pathParent2;
 
-    List<positionRecord> pastPositions;
+    List<positionRecord2> pastPositions;
 
     public static int snakelength = 0;
 
@@ -66,40 +67,48 @@ public class SnakeSpawner : MonoBehaviour
         //player snake
         StartPoint = GameObject.Find("StartPoint");
 
-        PlayerBox = Instantiate(Resources.Load<GameObject>("Prefabs/Box"), StartPoint.transform.position, Quaternion.identity);
+        EnemyBox = Instantiate(Resources.Load<GameObject>("Prefabs/Box"), StartPoint.transform.position, Quaternion.identity);
 
-        PlayerBox.GetComponent<SpriteRenderer>().color = Color.black;
+        EnemyBox.GetComponent<SpriteRenderer>().color = Color.red;
 
-        PlayerBox.AddComponent<SnakeController>();
+        EnemyBox.AddComponent<EnemyAI>();
 
-        PlayerBox.name = "PlayerHead";
+        EnemyBox.AddComponent<Seeker>();
 
-        breadcrumbBox = Resources.Load<GameObject>("Prefabs/Box");
+        EnemyBox.name = "EnemyHead";
 
-        pastPositions = new List<positionRecord>();
+        breadcrumbBox2 = Resources.Load<GameObject>("Prefabs/Box");
 
-        pathParent = new GameObject();
+        pastPositions = new List<positionRecord2>();
 
-        pathParent.transform.position = new Vector3(0f, 0f);
+        pathParent2 = new GameObject();
 
-        pathParent.name = "Path Parent";
+        pathParent2.transform.position = new Vector3(0f, 0f);
+
+        pathParent2.name = "Path Parent2";
 
         drawTail(snakelength);
+
+        StartCoroutine(waitForAI());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown && !((Input.GetMouseButtonDown(0)
-            || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))) && !Input.GetKeyDown(KeyCode.X) && !Input.GetKeyDown(KeyCode.Z) && !Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("a key was pressed " + Time.time);
 
+            
+    }
+
+    IEnumerator waitForAI()
+    {
+        while (true){
             savePosition();
 
             drawTail(snakelength);
 
+            yield return new WaitForSeconds(0.3f);
         }
+        
     }
 
     void drawTail(int length)
@@ -114,7 +123,7 @@ public class SnakeSpawner : MonoBehaviour
 
             for (int snakeblocks = tailStartIndex; snakeblocks > tailEndIndex; snakeblocks--)
             {
-                pastPositions[snakeblocks].BreadcrumbBox = Instantiate(breadcrumbBox, pastPositions[snakeblocks].Position, Quaternion.identity);
+                pastPositions[snakeblocks].BreadcrumbBox = Instantiate(breadcrumbBox2, pastPositions[snakeblocks].Position, Quaternion.identity);
 
             }
 
@@ -126,7 +135,7 @@ public class SnakeSpawner : MonoBehaviour
             //I don't have enough positions in the past positions list
             for (int count = length; count > 0; count--)
             {
-                positionRecord fakeBoxPos = new positionRecord();
+                positionRecord2 fakeBoxPos = new positionRecord2();
                 float ycoord = count * -1;
                 fakeBoxPos.Position = new Vector3(0f, ycoord);
                 pastPositions.Add(fakeBoxPos);
@@ -143,7 +152,7 @@ public class SnakeSpawner : MonoBehaviour
 
     void clearTail()
     {
-        foreach (positionRecord p in pastPositions)
+        foreach (positionRecord2 p in pastPositions)
         {
             // Debug.Log("Destroy tail" + pastPositions.Count);
             Destroy(p.BreadcrumbBox);
@@ -152,17 +161,17 @@ public class SnakeSpawner : MonoBehaviour
 
     void savePosition()
     {
-        positionRecord currentBoxPos = new positionRecord();
+        positionRecord2 currentBoxPos = new positionRecord2();
 
-        currentBoxPos.Position = PlayerBox.transform.position;
+        currentBoxPos.Position = EnemyBox.transform.position;
         positionorder++;
         currentBoxPos.PositionOrder = positionorder;
 
-        if (!boxExists(PlayerBox.transform.position))
+        if (!boxExists(EnemyBox.transform.position))
         {
-            currentBoxPos.BreadcrumbBox = Instantiate(breadcrumbBox, PlayerBox.transform.position, Quaternion.identity);
+            currentBoxPos.BreadcrumbBox = Instantiate(breadcrumbBox2, EnemyBox.transform.position, Quaternion.identity);
 
-            currentBoxPos.BreadcrumbBox.transform.SetParent(pathParent.transform);
+            currentBoxPos.BreadcrumbBox.transform.SetParent(pathParent2.transform);
 
             currentBoxPos.BreadcrumbBox.name = positionorder.ToString();
 
@@ -179,7 +188,7 @@ public class SnakeSpawner : MonoBehaviour
     {
         //foreach position in the list
 
-        foreach (positionRecord p in pastPositions)
+        foreach (positionRecord2 p in pastPositions)
         {
 
             if (p.Position == positionToCheck)
