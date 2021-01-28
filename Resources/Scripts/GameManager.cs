@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public float timeStart = 0;
+    public static float timeStart = 0;
     public bool timerIsRunning = false;
 
-    public Text timerText;
+    
+
+    public static string playerName;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,6 @@ public class GameManager : MonoBehaviour
         if (timerIsRunning)
         {
             timeStart += Time.deltaTime;
-            timerText.text = timeStart.ToString("0.00");
         }
     }
 }
