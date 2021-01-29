@@ -51,7 +51,7 @@ public class positionRecord2
 public class EnemySpawner : MonoBehaviour
 {
 
-    GameObject EnemyBox, StartPoint, breadcrumbBox2, pathParent2;
+    GameObject EnemyBox, EnemyStart, breadcrumbBox2, pathParent2;
 
     List<positionRecord2> pastPositions;
 
@@ -65,9 +65,9 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         //player snake
-        StartPoint = GameObject.Find("StartPoint");
+        EnemyStart = GameObject.Find("EnemyStart");
 
-        EnemyBox = Instantiate(Resources.Load<GameObject>("Prefabs/Box"), StartPoint.transform.position, Quaternion.identity);
+        EnemyBox = Instantiate(Resources.Load<GameObject>("Prefabs/Box"), EnemyStart.transform.position, Quaternion.identity);
 
         EnemyBox.GetComponent<SpriteRenderer>().color = Color.red;
 
