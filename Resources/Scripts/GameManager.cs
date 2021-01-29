@@ -6,16 +6,14 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static float timeStart = 0;
-    public bool timerIsRunning = false;
-
-    
+    public static bool timerIsRunning = false;
 
     public static string playerName;
 
     // Start is called before the first frame update
     void Start()
     {
-        timerIsRunning = true;
+        
     }
 
     // Update is called once per frame

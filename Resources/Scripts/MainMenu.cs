@@ -13,12 +13,14 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         nameInputField.characterLimit = 15;
+        GameManager.timerIsRunning = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckIfNameEmpty();
+        
     }
 
     void CheckIfNameEmpty()
@@ -37,6 +39,7 @@ public class MainMenu : MonoBehaviour
     {
         if (NameEntered == true)
         {
+            GameManager.playerName = nameInputField.text;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }

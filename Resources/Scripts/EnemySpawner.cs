@@ -55,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
 
     List<positionRecord2> pastPositions;
 
-    public static int snakelength = 0;
+    public static int snakelength = 4;
 
     int positionorder;
 

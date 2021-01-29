@@ -14,10 +14,21 @@ public class EnemyAI : MonoBehaviour
     //Referencing the target
     private GameObject target;
 
+    //a reference to GridGraphObject
+    GameObject graphParent;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //find the parent node of the point graph
+        graphParent = GameObject.Find("AStar");
+        //we scan the graph to generate it in memory
+        graphParent.GetComponent<AstarPath>().Scan();
+
+        StartCoroutine(updateGraph());
+
         StartCoroutine(waitABit());
     }
 
@@ -34,6 +45,16 @@ public class EnemyAI : MonoBehaviour
             EnemySpawner.snakelength++;
             Destroy(collision.gameObject);
         }
+    }
+
+    IEnumerator updateGraph()
+    {
+        while (true)
+        {
+            graphParent.GetComponent<AstarPath>().Scan();
+            yield return null;
+        }
+
     }
 
     IEnumerator waitABit()
