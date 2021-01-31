@@ -19,9 +19,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timerIsRunning)
+        if (timerIsRunning == true)
         {
             timeStart += Time.deltaTime;
+        }
+        else
+        {
+            timeStart = 0;
         }
     }
 }

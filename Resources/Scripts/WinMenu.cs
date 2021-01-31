@@ -11,9 +11,9 @@ public class WinMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.timerIsRunning = false;
-
         WinText.text = GameManager.playerName + ": " + GameManager.timeStart + " seconds";
+
+        GameManager.timerIsRunning = false;
     }
 
     // Update is called once per frame
