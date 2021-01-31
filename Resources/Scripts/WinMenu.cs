@@ -7,10 +7,16 @@ using UnityEngine.SceneManagement;
 public class WinMenu : MonoBehaviour
 {
     public Text WinText;
+    public HighscoreTable highscoreTable;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (GameManager.timeStart != 0 && GameManager.playerName != "")
+        {
+            highscoreTable.AddHighscoreEntry((int)GameManager.timeStart, GameManager.playerName);
+        }
+
         WinText.text = GameManager.playerName + ": " + GameManager.timeStart + " seconds";
 
         GameManager.timerIsRunning = false;
