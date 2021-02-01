@@ -28,6 +28,7 @@ public class SnakeController : MonoBehaviour
         if (collision.gameObject.tag == "Obstacle")
         {
             SnakeSpawner.snakelength = 0;
+            EnemySpawner.snakelength = 0;
             Debug.Log("collided with wall");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
@@ -35,9 +36,17 @@ public class SnakeController : MonoBehaviour
         {
             if(SnakeSpawner.snakelength >= 6) {
                 SnakeSpawner.snakelength = 0;
+                EnemySpawner.snakelength = 0;
                 Debug.Log("collided with finish");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
             }
+        }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            SnakeSpawner.snakelength = 0;
+            EnemySpawner.snakelength = 0;
+            Debug.Log("collided with enemy");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

@@ -67,7 +67,7 @@ public class EnemySpawner : MonoBehaviour
         //player snake
         EnemyStart = GameObject.Find("EnemyStart");
 
-        EnemyBox = Instantiate(Resources.Load<GameObject>("Prefabs/Box"), EnemyStart.transform.position, Quaternion.identity);
+        EnemyBox = Instantiate(Resources.Load<GameObject>("Prefabs/EnemyHead"), EnemyStart.transform.position, Quaternion.identity);
 
         EnemyBox.GetComponent<SpriteRenderer>().color = Color.red;
 
@@ -77,7 +77,7 @@ public class EnemySpawner : MonoBehaviour
 
         EnemyBox.name = "EnemyHead";
 
-        breadcrumbBox2 = Resources.Load<GameObject>("Prefabs/Box");
+        breadcrumbBox2 = Resources.Load<GameObject>("Prefabs/EnemyBody");
 
         pastPositions = new List<positionRecord2>();
 
@@ -137,7 +137,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 positionRecord2 fakeBoxPos = new positionRecord2();
                 float ycoord = count * -1;
-                fakeBoxPos.Position = new Vector3(0f, ycoord);
+                fakeBoxPos.Position = new Vector3(-3f, ycoord);
                 pastPositions.Add(fakeBoxPos);
 
 
@@ -181,7 +181,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         pastPositions.Add(currentBoxPos);
-        Debug.Log("Have made this many moves: " + pastPositions.Count);
+        //Debug.Log("Have made this many moves: " + pastPositions.Count);
 
     }
     bool boxExists(Vector3 positionToCheck)

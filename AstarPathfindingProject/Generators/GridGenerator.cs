@@ -85,6 +85,7 @@ namespace Pathfinding {
 	[Pathfinding.Util.Preserve]
 	public class GridGraph : NavGraph, IUpdatableGraph, ITransformedGraph {
 		public static Vector3[] sendToTask8;
+		public static int noOfriangles;
 		/// <summary>This function will be called when this graph is destroyed</summary>
 		protected override void OnDestroy () {
 			base.OnDestroy();
@@ -1569,7 +1570,7 @@ namespace Pathfinding {
 
 			// Get arrays that have room for all vertices/colors (the array might be larger)
 			var vertices = ArrayPool<Vector3>.Claim (walkable*verticesPerNode);
-			sendToTask8 = vertices;
+			
 			var colors = ArrayPool<Color>.Claim (walkable*verticesPerNode);
 			int baseIndex = 0;
 
@@ -1656,8 +1657,10 @@ namespace Pathfinding {
 				baseIndex += verticesPerNode;
 			}
 
+			sendToTask8 = vertices;
+			noOfriangles = baseIndex * trianglesPerNode / verticesPerNode;
 			if (showMeshSurface) helper.DrawTriangles(vertices, colors, baseIndex*trianglesPerNode/verticesPerNode);
-
+			
 			ArrayPool<Vector3>.Release (ref vertices);
 			ArrayPool<Color>.Release (ref colors);
 		}

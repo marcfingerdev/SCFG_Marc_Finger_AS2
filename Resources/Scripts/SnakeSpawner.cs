@@ -88,7 +88,7 @@ public class SnakeSpawner : MonoBehaviour
         //player snake
         StartPoint = GameObject.Find("StartPoint");
 
-        PlayerBox = Instantiate(Resources.Load<GameObject>("Prefabs/Box"), StartPoint.transform.position, Quaternion.identity);
+        PlayerBox = Instantiate(Resources.Load<GameObject>("Prefabs/PlayerHead"), StartPoint.transform.position, Quaternion.identity);
 
         PlayerBox.GetComponent<SpriteRenderer>().color = Color.black;
 
@@ -96,7 +96,7 @@ public class SnakeSpawner : MonoBehaviour
 
         PlayerBox.name = "PlayerHead";
 
-        breadcrumbBox = Resources.Load<GameObject>("Prefabs/Box");
+        breadcrumbBox = Resources.Load<GameObject>("Prefabs/PlayerBody");
 
         pastPositions = new List<positionRecord>();
 
