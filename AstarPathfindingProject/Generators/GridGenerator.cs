@@ -84,6 +84,7 @@ namespace Pathfinding {
 	[JsonOptIn]
 	[Pathfinding.Util.Preserve]
 	public class GridGraph : NavGraph, IUpdatableGraph, ITransformedGraph {
+		public static Vector3[] sendToTask8;
 		/// <summary>This function will be called when this graph is destroyed</summary>
 		protected override void OnDestroy () {
 			base.OnDestroy();
@@ -1568,6 +1569,7 @@ namespace Pathfinding {
 
 			// Get arrays that have room for all vertices/colors (the array might be larger)
 			var vertices = ArrayPool<Vector3>.Claim (walkable*verticesPerNode);
+			sendToTask8 = vertices;
 			var colors = ArrayPool<Color>.Claim (walkable*verticesPerNode);
 			int baseIndex = 0;
 

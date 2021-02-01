@@ -21,7 +21,7 @@ public class FoodParticle : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Finish")
         {
-            Debug.Log("Hit Dead");
+            //Debug.Log("Hit Dead");
             Destroy(this.gameObject);
         }
     }

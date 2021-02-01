@@ -193,10 +193,10 @@ public class EnemySpawner : MonoBehaviour
 
             if (p.Position == positionToCheck)
             {
-                Debug.Log(p.Position + "Actually was a past position");
+                //Debug.Log(p.Position + "Actually was a past position");
                 if (p.BreadcrumbBox != null)
                 {
-                    Debug.Log(p.Position + "Actually has a red box already");
+                    //Debug.Log(p.Position + "Actually has a red box already");
                     //this breaks the foreach so I don't need to keep checking
                     return true;
                 }
